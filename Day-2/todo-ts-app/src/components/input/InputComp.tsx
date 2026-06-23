@@ -7,15 +7,16 @@ type Todo = {
 
 export default function InputComp() {
 
-  const {addTodo} = useTodo()
-  const [task, setTask] = useState<string>('');
+  const {addTodo, editTodo, task, setTask} = useTodo()
+  const [editState, setEditState] = useState<boolean>(false)
 
   const handleAddTask = ():void =>{
     if(!task) return;
-
+  
     addTodo(task);
     setTask('');
   }
+
 
   return (
     <div className="flex gap-4">
@@ -27,7 +28,7 @@ export default function InputComp() {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTask(e.target.value) }
       />
       <button onClick={handleAddTask} className="border rounded-lg px-2 py-1">
-        +Add task
+        {editState? "Update" : "+Add task"}
       </button>
     </div>
   );

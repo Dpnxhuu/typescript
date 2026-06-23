@@ -151,11 +151,43 @@
 
 //type use kro jab: 
 
-type ID = string | number;        // union types
-type Status = "active" | "inactive"; // literal types
-type Point = [number, number];    // tuples
-type Callback = (data: string) => void; // function types
+// type ID = string | number;        // union types
+// type Status = "active" | "inactive"; // literal types
+// type Point = [number, number];    // tuples
+// type Callback = (data: string) => void; // function types
 
-type User = {
-  name: string;
-} & { age: number }; // intersection
+// type User = {
+//   name: string;
+// } & { age: number }; // intersection
+
+// const str:string = "Deepanshu";
+
+// const l:number = Math.trunc(str.length - 1 /2);
+
+// console.log(l);
+
+function buildLPS(str: string): number[] {
+    const n = str.length;
+    const lps = new Array(n).fill(0);
+    let len = 0;   // abhi tak ka matched length
+    let i = 1;     // index 0 ka LPS hamesha 0 hota hai, isliye 1 se start
+
+    while (i < n) {
+        if (str[i] === str[len]) {
+            len++;
+            lps[i] = len;
+            i++;
+        } else if (len > 0) {
+            len = lps[len - 1];
+        } else {
+            lps[i] = 0;
+            i++;
+        }
+    }
+
+    return lps;
+}
+
+const l = buildLPS("aabaa")
+
+console.log(l);

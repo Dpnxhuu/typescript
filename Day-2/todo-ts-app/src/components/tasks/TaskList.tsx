@@ -10,7 +10,7 @@ type TodoProp = {
 };
 
 function TaskCard({ id, text, completed }: TodoProp) {
-  const { toggleTodo, deleteTodo } = useTodo();
+  const { toggleTodo, deleteTodo, editTodo } = useTodo();
 
   return (
     <div className="flex w-full items-center justify-between bg-gray-500 p-3 rounded-lg overflow-hidden min-h-14 shrink-0">
@@ -28,7 +28,7 @@ function TaskCard({ id, text, completed }: TodoProp) {
         </label>
       </div>
       <div className="flex gap-3 items-center">
-        <span className="lg:hover:bg-lightBackground lg:hover:dark:bg-white/10 active:dark:bg-white/10 p-1.5 rounded-sm cursor-pointer transition-all lg:duration-300 duration-150">
+        <span  className="lg:hover:bg-lightBackground lg:hover:dark:bg-white/10 active:dark:bg-white/10 p-1.5 rounded-sm cursor-pointer transition-all lg:duration-300 duration-150">
           <Pencil size={16} />
         </span>
         <span onClick={() => deleteTodo(id)} className="lg:hover:bg-lightBackground lg:hover:dark:bg-white/10 active:dark:bg-white/10 p-1.5 rounded-sm cursor-pointer transition-all lg:duration-300 duration-150">

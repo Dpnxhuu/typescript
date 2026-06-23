@@ -1,6 +1,6 @@
 // TodoContext.tsx
 "use client"
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
 
 type Todo = {
   id: number;
@@ -10,15 +10,20 @@ type Todo = {
 
 type TodoContextType = {
   todos: Todo[];
+  task: string,
+  setTask: Dispatch<SetStateAction<string>>;
   addTodo: (text: string) => void;
   toggleTodo: (id: number) => void; // Add this
   deleteTodo: (id: number) => void; // Add this
+  editTodo: (id: number, text: string) => void;
 };
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
+
 export function TodoProvider({ children }: { children: ReactNode }) {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [task, setTask] = useState<string>('');
 
   const addTodo = (text: string) => {
     setTodos(prev => [...prev, { id: Date.now(), text, completed: false }]);
@@ -32,8 +37,12 @@ export function TodoProvider({ children }: { children: ReactNode }) {
     setTodos(prev => prev.filter(t => t.id !== id));
   };
 
+  const editTodo = (id: number, text: string) => {
+    setTodos(prev => prev.map((t) => t.id === id? {...t, text: text} : t))
+  }
+
   return (
-    <TodoContext.Provider value={{ todos, addTodo, toggleTodo, deleteTodo }}>
+    <TodoContext.Provider value={{ todos, addTodo, toggleTodo, deleteTodo, editTodo, task, setTask }}>
       {children}
     </TodoContext.Provider>
   );
